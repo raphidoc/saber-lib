@@ -1,8 +1,8 @@
-#include "../include/data_cache.h"
-#include "../include/snell_law.h"
-#include "../include/forward_model.h"
-#include "../include/iop_from_oac.h"
-#include "../include/r_rs_b_lmm.h"
+#include "../src/data_cache.h"
+#include "../src/snell_law.h"
+#include "../src/forward_model.h"
+#include "../src/iop_from_oac.h"
+#include "../src/r_rs_b_lmm.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -36,7 +36,7 @@ int main() {
             0.02, 0.04,
             0.03, 0.05
     };
-    load_bottom_reflectance(wl, rrs_b, class_names, n, n_cls);
+    load_r_rs_b(wl, class_names, rrs_b,  n, n_cls);
 
     // 3. Build cache
     build_cache(wl, n);

@@ -1,5 +1,5 @@
-#include "../include/forward_model.h"
-#include "../include/snell_law.h"
+#include "forward_model.h"
+#include "snell_law.h"
 #include <math.h>
 
 int forward_am03(

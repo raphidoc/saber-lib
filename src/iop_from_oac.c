@@ -20,7 +20,10 @@ int iop_from_oac(
         double* a_out, double* bb_out
 ) {
     if (!wavelength || !a_out || !bb_out) return 1;
-    if (get_n() != n) return 2;
+    int rc = ensure_cache(wavelength, n);
+    if (rc) {
+        return rc;
+    }
 
     const double* aw_ptr   = get_a_w();
     const double* a0_ptr   = get_a0();

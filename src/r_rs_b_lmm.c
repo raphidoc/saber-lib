@@ -1,5 +1,5 @@
-#include "../include/r_rs_b_lmm.h"
-#include "../include/data_cache.h"
+#include "r_rs_b_lmm.h"
+#include "data_cache.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -10,9 +10,9 @@ int compute_r_rs_b_lmm(
     if (!class_names || !class_fractions || !out_r_rs_b) return 1;
 
     const double* r_rs_b = get_r_rs_b();
-    const char** colnames = get_r_rs_b_colnames();
-    size_t n_wl = get_n();
-    size_t n_class = get_n_classes();
+    const char** colnames = get_r_rs_b_class_names();
+    size_t n_wl = get_n_wl();
+    size_t n_class = get_n_class();
 
     if (!r_rs_b || !colnames || n_wl == 0 || n_class == 0) return 2;
 

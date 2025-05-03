@@ -1,4 +1,4 @@
-#include "../include/snell_law.h"
+#include "snell_law.h"
 #include <math.h>
 
 // Cached last-used input/output
