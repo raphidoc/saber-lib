@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(saber-lib
-        VERSION 0.1.1
+        VERSION 0.1.2
         LANGUAGES C
 )
 
@@ -16,9 +16,14 @@ file(GLOB_RECURSE SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
 add_library(saber ${SRC_FILES})
 target_link_libraries(saber PUBLIC m)
 
+set(PUBLIC_HEADERS
+        include/saber.h
+        include/saber_version.h
+)
+
 # Tell CMake which headers to install
 set_target_properties(saber PROPERTIES
-        PUBLIC_HEADER "include/saber.h"
+        PUBLIC_HEADER "${PUBLIC_HEADERS}"
         OUTPUT_NAME saber
 )
 

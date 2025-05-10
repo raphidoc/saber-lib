@@ -14,6 +14,18 @@ static double get_named_value(const char* name, const char** names, const double
     return 0.0;
 }
 
+/**
+ *
+ * @param wavelength
+ * @param n
+ * @param param_names
+ * @param param_values
+ * @param n_param
+ * @param a_out
+ * @param bb_out
+ * @return
+ */
+
 int iop_from_oac(
         const double* wavelength, size_t n,
         const char** param_names, const double* param_values, size_t n_param,
@@ -22,7 +34,7 @@ int iop_from_oac(
     if (!wavelength || !a_out || !bb_out) return 1;
     int rc = ensure_cache(wavelength, n);
     if (rc) {
-        return rc;
+        return rc; // propagate the error if problem with the data cache
     }
 
     const double* aw_ptr   = get_a_w();
@@ -44,11 +56,10 @@ int iop_from_oac(
     double bb_p_550     = get_named_value("bb_p_550", param_names, param_values, n_param, &found);
     int has_bb_p_550    = found;
 
-    double a_g_s_g      = get_named_value("a_g_s_g", param_names, param_values, n_param, &found);
-    double a_g_s_d      = get_named_value("a_g_s_d", param_names, param_values, n_param, &found);
+    double a_g_s      = get_named_value("a_g_s", param_names, param_values, n_param, &found);
     int has_a_g_slopes  = found;
 
-    double a_nap_s_d    = get_named_value("a_nap_s_d", param_names, param_values, n_param, &found);
+    double a_nap_s    = get_named_value("a_nap_s", param_names, param_values, n_param, &found);
     int has_a_nap_slope = found;
 
     double bb_p_gamma   = get_named_value("bb_p_gamma", param_names, param_values, n_param, &found);
@@ -71,14 +82,14 @@ int iop_from_oac(
         // CDOM absorption
         double a_g = 0.0;
         if (has_a_g_440) {
-            double slope = has_a_g_slopes ? (a_g_s_g + a_g_s_d) : 0.017;
+            double slope = has_a_g_slopes ? (a_g_s) : 0.017;
             a_g = a_g_440 * exp(-slope * (wl - 440.0));
         }
 
         // NAP absorption
         double a_nap = 0.0;
         if (has_a_nap_440) {
-            double slope = has_a_nap_slope ? a_nap_s_d : 0.0116;
+            double slope = has_a_nap_slope ? a_nap_s : 0.0116;
             a_nap = a_nap_440 * exp(-slope * (wl - 440.0));
         }
 
