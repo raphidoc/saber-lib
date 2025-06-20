@@ -20,17 +20,21 @@ int compute_r_rs_b_lmm(
     for (size_t i = 0; i < n_wl; i++) out_r_rs_b[i] = 0.0;
 
     // Normalize fractions
-    double sum = 0.0;
-    for (size_t j = 0; j < n_frac; j++) {
-        if (class_fractions[j] < 0.0) return 3;  // invalid
-        sum += class_fractions[j];
-    }
-
-    if (sum <= 0.0) return 4;
+//    double sum = 0.0;
+//    for (size_t j = 0; j < n_frac; j++) {
+//        if (class_fractions[j] < 0.0) return 3;  // invalid
+//        sum += class_fractions[j];
+//    }
+//
+//    if (sum <= 0.0) return 4;
+//
+//    for (size_t j = 0; j < n_frac; j++) {
+//        const char* name = class_names[j];
+//        double weight = class_fractions[j] / sum;
 
     for (size_t j = 0; j < n_frac; j++) {
         const char* name = class_names[j];
-        double weight = class_fractions[j] / sum;
+        double weight = class_fractions[j];
 
         int matched = -1;
         for (size_t k = 0; k < n_class; k++) {
